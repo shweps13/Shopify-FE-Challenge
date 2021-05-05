@@ -47,22 +47,27 @@ const MainBlock = () => {
             <Input loading={fetching} fluid icon='search' iconPosition='left' placeholder='Search...' value={movie} onChange={movieHandler}/>
         </Form>
 
-        <Card.Group centered={true} id="Cards-group" itemsPerRow={5}>
+        <div id="Cards-group">
         {searchResults.map((movie, i) => ( 
             (movie.Poster === "N/A") ? 
-            <>
-                <Card key={i} raised>
-                    {/* <Card.Description>{movie.Title}</Card.Description> */}
+            <div className="Card-na">
+                {/* <Card key={i} raised>
+                    <Card.Description>{movie.Title}</Card.Description>
                     <Image src={MovieIcon} circular size='small' centered />
-                    {/* <Card.Description>{movie.Year}</Card.Description> */}
-                </Card>
-            </> 
+                    <Card.Description>{movie.Year}</Card.Description>
+                </Card> */}
+            </div> 
                 : 
-            <>
-                <Card key={i} raised image={movie.Poster}/>
-            </>
+            <div className="Card">
+                <div className="Card-item">
+                    <div className="Card-image">
+                        <img src={movie.Poster} alt={movie.Title} />
+                    </div>
+                    <div className="Card-title">{movie.Title}</div>
+                </div>
+            </div>
         ))}
-        </Card.Group>
+        </div>
     </div>
     )
 }
