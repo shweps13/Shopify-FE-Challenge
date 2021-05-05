@@ -15,7 +15,11 @@ const MainBlock = () => {
     useEffect(() => {
         axios.get(`https://www.omdbapi.com/?s=${movie}&apikey=${process.env.REACT_APP_APIKEY}`)
         .then(response => {
-            console.log(response.data)
+            if (response.data.Response === "True") {
+                setSearchResults(response.data.Search)
+                // console.log("==>",response.data)
+            }
+            // console.log(response.data)
         })
         .catch(error => {
             console.log(error)
@@ -35,6 +39,9 @@ const MainBlock = () => {
             <Header as='h4'>Movie title</Header>
             <Input fluid icon='search' iconPosition='left' placeholder='Search...' value={movie} onChange={movieHandler}/>
         </Form>
+        {searchResults.map((movie) => (
+            <div key={movie.imdbID}><p>{movie.Title} </p></div > 
+        ))}
     </div>
     )
 }
