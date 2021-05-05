@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Statistic, Form, Input, Header, Pagination } from 'semantic-ui-react';
+
 import MovieIcon from '../movieIcon.png';
+import MovieCard from './MovieCard.js';
 
 
 const MainBlock = () => {
@@ -11,10 +13,13 @@ const MainBlock = () => {
     const [resultsCounter, setResultsCounter] = useState("");
     const [fetching, setFetching] = useState(false);
     const [activePageNum, setActivePageNum] = useState(1);
+    
+    const [selectedMovies, setSelectedMovies] = useState([]);
 
-    // useEffect(() => {
-    //     console.log(searchResults)
-    // }, [searchResults])
+
+    useEffect(() => {
+        console.log('==>',selectedMovies)
+    }, [selectedMovies])
 
     useEffect(() => {
         if (movie) {
@@ -62,28 +67,14 @@ const MainBlock = () => {
         <div id="Cards-group">
         {searchResults.map((movie, i) => ( 
             (movie.Poster === "N/A") ? 
-            <div key={i + movie.imdbID} className="Card">
-                <div className="Card-item">
-                    <div className="Card-image">
-                        <img id='Card-cover-na' src={MovieIcon} alt={movie.Title} />
-                    </div>
-                    <div className="Card-title">{movie.Title}</div>
-                </div>
-            </div>
+                <MovieCard key={i + movie.imdbID} cover={MovieIcon} title={movie.Title} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
                 : 
-            <div key={i + movie.imdbID} className="Card">
-                <div className="Card-item">
-                    <div className="Card-image">
-                        <img src={movie.Poster} alt={movie.Title} />
-                    </div>
-                    <div className="Card-title">{movie.Title}</div>
-                </div>
-            </div>
+                <MovieCard key={i + movie.imdbID} cover={movie.Poster} title={movie.Title} titleStyle="Card-title" />
         ))}
         </div>
         {(resultsCounter === "") ? <></> : 
         <div className="pagination-div">
-            <Pagination onPageChange={paginatorHandler} activePage={activePageNum} totalPages={Math.round((parseInt(resultsCounter)) / 10)} />
+            <Pagination onPageChange={paginatorHandler} activePage={activePageNum} totalPages={Math.ceil((parseInt(resultsCounter)) / 10)} />
         </div>
         }
         
