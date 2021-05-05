@@ -18,6 +18,7 @@
 #Main-form-block {
   background-color: rgb(246, 246, 246) ;
   width: 50em;
+
   padding: 1em;
   border: 1px solid lightgray;
   border-radius: 0.5em;
@@ -31,4 +32,9 @@
 .Main-form-header{
   justify-content: start;
   padding-bottom: 0.5em;
+}
+
+#Cards-group {
+  width: 100%;
+  max-width: 700px;
 }
