@@ -12,22 +12,17 @@ const MainBlock = () => {
     const [fetching, setFetching] = useState(false);
     const [activePageNum, setActivePageNum] = useState(1);
 
-    useEffect(() => {
-        console.log(activePageNum)
-    }, [activePageNum])
-
     // useEffect(() => {
     //     console.log(searchResults)
     // }, [searchResults])
 
     useEffect(() => {
         if (movie) {
-            axios.get(`https://www.omdbapi.com/?s=${movie}&apikey=${process.env.REACT_APP_APIKEY}`)
+            axios.get(`https://www.omdbapi.com/?s=${movie}&apikey=${process.env.REACT_APP_APIKEY}&page=${activePageNum}`)
             .then(response => {
                 if (response.data.Response === "True") {
                     setSearchResults(response.data.Search);
                     setResultsCounter(response.data.totalResults);
-                    // console.log("==>",response.data)
                 }
             })
             .catch(error => {
@@ -38,7 +33,7 @@ const MainBlock = () => {
             setResultsCounter("");
         }
         setFetching(false);
-    }, [movie])
+    }, [movie, activePageNum])
 
     const movieHandler = (e) => {
         setMovie(e.target.value);
