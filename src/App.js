@@ -6,9 +6,9 @@ import MainBlock from './components/MainBlock.js';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="Main-block">
         <MainBlock />
-      </header>
+      </div>
     </div>
   );
 }

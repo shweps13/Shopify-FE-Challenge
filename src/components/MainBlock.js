@@ -1,14 +1,15 @@
 import React from 'react';
-import { Button, Form } from 'semantic-ui-react';
+import { Form, Input, Header } from 'semantic-ui-react';
 
 const MainBlock = () => (
-  <Form>
-    <Form.Field>
-      <label>Movie title</label>
-      <input placeholder='Search...' />
-    </Form.Field>
-    <Button type='submit'>Submit</Button>
-  </Form>
+    <div className="Main-form-block">
+        <div className="Main-form-header">
+            <Header as='h1'>The Shoppies</Header>
+        </div>
+        <Form id="Main-form-block">
+            <Input fluid icon='search' iconPosition='left' placeholder='Search...' />
+        </Form>
+    </div>
 )
 
 export default MainBlock

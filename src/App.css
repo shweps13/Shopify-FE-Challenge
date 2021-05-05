@@ -2,8 +2,7 @@
   text-align: center;
 }
 
-.App-header {
-  /* background-color: #282c34; */
+.Main-block {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -13,7 +12,20 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+#Main-form-block, .Main-form-header {
+  display: flex;
 }
 
+#Main-form-block {
+  background-color: rgb(246, 246, 246) ;
+  width: 50em;
+  padding: 1em;
+  border: 1px solid lightgray;
+  border-radius: 0.5em;
+  flex-direction: column;
+}
+
+.Main-form-header{
+  justify-content: start;
+  padding-bottom: 0.5em;
+}
