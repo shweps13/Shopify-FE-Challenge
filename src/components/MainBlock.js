@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, Image, Form, Input, Header } from 'semantic-ui-react';
+import { Statistic, Form, Input, Header } from 'semantic-ui-react';
 import MovieIcon from '../movieIcon.png';
 
 
@@ -8,6 +8,7 @@ const MainBlock = () => {
 
     const [movie, setMovie] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [resultsCounter, setResultsCounter] = useState("");
     const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
@@ -19,7 +20,8 @@ const MainBlock = () => {
             axios.get(`https://www.omdbapi.com/?s=${movie}&apikey=${process.env.REACT_APP_APIKEY}`)
             .then(response => {
                 if (response.data.Response === "True") {
-                    setSearchResults(response.data.Search)
+                    setSearchResults(response.data.Search);
+                    setResultsCounter(response.data.totalResults);
                     // console.log("==>",response.data)
                 }
             })
@@ -28,6 +30,7 @@ const MainBlock = () => {
             })
         } else {
             setSearchResults([]);
+            setResultsCounter("");
         }
         setFetching(false);
     }, [movie])
@@ -41,6 +44,12 @@ const MainBlock = () => {
     <div className="Main-form-block">
         <div className="Main-form-header">
             <Header as='h1'>The Shoppies</Header>
+            {(resultsCounter === "") ? <></> : 
+            <Statistic size='mini'>
+                <Statistic.Value>{resultsCounter}</Statistic.Value>
+                <Statistic.Label>Movies</Statistic.Label>
+            </Statistic>
+            }
         </div>
         <Form id="Main-form-block">
             <Header as='h4'>Movie title</Header>
@@ -50,7 +59,7 @@ const MainBlock = () => {
         <div id="Cards-group">
         {searchResults.map((movie, i) => ( 
             (movie.Poster === "N/A") ? 
-            <div className="Card">
+            <div key={i + movie.imdbID} className="Card">
                 <div className="Card-item">
                     <div className="Card-image">
                         <img id='Card-cover-na' src={MovieIcon} alt={movie.Title} />
@@ -59,7 +68,7 @@ const MainBlock = () => {
                 </div>
             </div>
                 : 
-            <div className="Card">
+            <div key={i + movie.imdbID} className="Card">
                 <div className="Card-item">
                     <div className="Card-image">
                         <img src={movie.Poster} alt={movie.Title} />

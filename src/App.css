@@ -30,8 +30,13 @@
 }
 
 .Main-form-header{
-  justify-content: start;
+  justify-content: space-between;
   padding-bottom: 0.5em;
+  align-items: flex-end;
+}
+
+.Main-form-header h1{
+  margin: 0 !important;
 }
 
 /* Grids with movie covers here */
