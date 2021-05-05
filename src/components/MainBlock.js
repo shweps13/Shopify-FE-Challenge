@@ -9,7 +9,17 @@ const MainBlock = () => {
     const [searchResults, setSearchResults] = useState([]);
 
     useEffect(() => {
-        console.log(movie)
+        console.log(searchResults)
+    }, [searchResults])
+
+    useEffect(() => {
+        axios.get(`https://www.omdbapi.com/?s=${movie}&apikey=${process.env.REACT_APP_APIKEY}`)
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }, [movie])
 
     const movieHandler = (e) => {
