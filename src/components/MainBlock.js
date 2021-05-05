@@ -7,6 +7,11 @@ const MainBlock = () => {
 
     const [movie, setMovie] = useState("");
     const [searchResults, setSearchResults] = useState([]);
+    const [fetching, setFetching] = useState(false);
+
+    useEffect(() => {
+        console.log("loading", fetching)
+    }, [fetching])
 
     useEffect(() => {
         console.log(searchResults)
@@ -19,15 +24,16 @@ const MainBlock = () => {
                 setSearchResults(response.data.Search)
                 // console.log("==>",response.data)
             }
-            // console.log(response.data)
         })
         .catch(error => {
             console.log(error)
         })
+        setFetching(false);
     }, [movie])
 
     const movieHandler = (e) => {
         setMovie(e.target.value);
+        setFetching(true);
     };
 
     return(
@@ -37,10 +43,10 @@ const MainBlock = () => {
         </div>
         <Form id="Main-form-block">
             <Header as='h4'>Movie title</Header>
-            <Input fluid icon='search' iconPosition='left' placeholder='Search...' value={movie} onChange={movieHandler}/>
+            <Input loading={fetching} fluid icon='search' iconPosition='left' placeholder='Search...' value={movie} onChange={movieHandler}/>
         </Form>
         {searchResults.map((movie) => (
-            <div key={movie.imdbID}><p>{movie.Title} </p></div > 
+            <div key={movie.imdbID}><p>{movie.Title}</p></div > 
         ))}
     </div>
     )
