@@ -94,3 +94,8 @@
   object-position: 50% 50%;
   object-fit: contain;
 }
+
+/* Pagination */
+.pagination-div a:focus {
+  outline: none;
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Statistic, Form, Input, Header } from 'semantic-ui-react';
+import { Statistic, Form, Input, Header, Pagination } from 'semantic-ui-react';
 import MovieIcon from '../movieIcon.png';
 
 
@@ -10,10 +10,15 @@ const MainBlock = () => {
     const [searchResults, setSearchResults] = useState([]);
     const [resultsCounter, setResultsCounter] = useState("");
     const [fetching, setFetching] = useState(false);
+    const [activePageNum, setActivePageNum] = useState(1);
 
     useEffect(() => {
-        console.log(searchResults)
-    }, [searchResults])
+        console.log(activePageNum)
+    }, [activePageNum])
+
+    // useEffect(() => {
+    //     console.log(searchResults)
+    // }, [searchResults])
 
     useEffect(() => {
         if (movie) {
@@ -38,6 +43,9 @@ const MainBlock = () => {
     const movieHandler = (e) => {
         setMovie(e.target.value);
         setFetching(true);
+    };
+    const paginatorHandler = (e, data) => {
+        setActivePageNum(data.activePage)
     };
 
     return(
@@ -78,6 +86,12 @@ const MainBlock = () => {
             </div>
         ))}
         </div>
+        {(resultsCounter === "") ? <></> : 
+        <div className="pagination-div">
+            <Pagination onPageChange={paginatorHandler} activePage={activePageNum} totalPages={Math.round((parseInt(resultsCounter)) / 10)} />
+        </div>
+        }
+        
     </div>
     )
 }
