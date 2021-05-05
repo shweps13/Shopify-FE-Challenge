@@ -50,13 +50,14 @@ const MainBlock = () => {
         <div id="Cards-group">
         {searchResults.map((movie, i) => ( 
             (movie.Poster === "N/A") ? 
-            <div className="Card-na">
-                {/* <Card key={i} raised>
-                    <Card.Description>{movie.Title}</Card.Description>
-                    <Image src={MovieIcon} circular size='small' centered />
-                    <Card.Description>{movie.Year}</Card.Description>
-                </Card> */}
-            </div> 
+            <div className="Card">
+                <div className="Card-item">
+                    <div className="Card-image">
+                        <img id='Card-cover-na' src={MovieIcon} alt={movie.Title} />
+                    </div>
+                    <div className="Card-title">{movie.Title}</div>
+                </div>
+            </div>
                 : 
             <div className="Card">
                 <div className="Card-item">

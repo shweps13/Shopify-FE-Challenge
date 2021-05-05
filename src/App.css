@@ -34,6 +34,8 @@
   padding-bottom: 0.5em;
 }
 
+/* Grids with movie covers here */
+
 #Cards-group {
   padding: 0;
   margin: 0;
@@ -41,26 +43,26 @@
   max-width: 50em;
 }
 
-/* removing grey background from cards */
-#Cards-group > div > img{
-  background-color: white !important;
-  /* height: auto !important; */
-}
-
 #Cards-group {
-  margin: 2px;
-  padding: 0;
+  margin: 0;
+  padding: 20px;
   text-align: center;
   display: grid;
   grid-template-columns: repeat(5,1fr);
-  grid-auto-rows: 250px;
+  grid-auto-rows: 180px;
   grid-gap: 20px;
-  /* max-width: 50em; */
+  max-width: 700px;
 }
 
-.Card-title {
-  color: black;
-  font-weight: 100 !important;
+.Card-item .Card-title {
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  pointer-events: none;
+  z-index: 5;
 }
 
 .Card-item, .Card-item .Card-image, .Card-item .Card-image img{
@@ -80,4 +82,10 @@
   object-fit: cover;
   object-position: 50% 50%;
   cursor: pointer;
+}
+
+#Card-cover-na {
+  background-color: rgb(242, 242, 242);
+  object-position: 50% 50%;
+  object-fit: contain;
 }
