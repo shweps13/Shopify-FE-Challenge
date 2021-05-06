@@ -107,9 +107,14 @@ const MainBlock = () => {
                             <List divided verticalAlign='middle'>
                                 {Object.keys(selectedMovies).map(function(key, index) {
                                     return (
-                                        <List.Item key={index + selectedMovies[key].imdbID} >
+                                        <List.Item className='Menu-item' key={index + selectedMovies[key].imdbID} >
                                             <Image avatar src={selectedMovies[key].Poster} />
-                                            <List.Content>{selectedMovies[key].Title}</List.Content>
+                                            {(selectedMovies[key].Title.length > 15) ? 
+                                                <List.Content id="Trimmed-menu">{selectedMovies[key].Title}</List.Content>
+                                                :
+                                                <List.Content>{selectedMovies[key].Title}</List.Content>
+                                            }
+                                            <Button circular id="MenuBtn" basic color='red' icon='remove' size='mini' />
                                         </List.Item>
                                     )
                                 })}

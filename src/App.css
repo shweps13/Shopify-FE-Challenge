@@ -107,11 +107,28 @@
 }
 
 /* Cards Dimmer */
-#Trimmed {
+#Trimmed, #Trimmed-menu {
   text-overflow: ellipsis;
   overflow:hidden;      
   white-space:nowrap;
 }
+
+#Trimmed-menu {
+  max-width: 10em;
+}
+
+
+.Menu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+}
+
+#MenuBtn {
+  float: right !important;
+}
+
 
 .content {
   width: 130%;
