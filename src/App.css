@@ -123,6 +123,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-content: center;
+  min-width: 15em !important;
 }
 
 #MenuBtn {
