@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dimmer, Header, Button } from 'semantic-ui-react';
 
-const MovieCard = ({coverStyle, addHandler, movie, cover, titleStyle}) => {
+const MovieCard = ({coverStyle, addHandler, movie, cover, selectedMovies, titleStyle}) => {
 
     const [dimmer, setDimmer] = useState({ active: false });
 
@@ -16,7 +16,11 @@ const MovieCard = ({coverStyle, addHandler, movie, cover, titleStyle}) => {
                 <Header as='h5' inverted>{movie.Title}</Header>}
             <Header as='h5' inverted>{movie.Year}</Header>
 
-            <Button size="mini" primary onClick={() => addHandler(movie.imdbID)}>Nominate</Button>
+            {(selectedMovies.hasOwnProperty(movie.imdbID)) ? 
+                <Button size="mini" color='red' onClick={() => addHandler(movie)}>Remove</Button>   
+                :
+                <Button size="mini" primary onClick={() => addHandler(movie)}>Nominate</Button>
+            }
         </div>      
       )
 

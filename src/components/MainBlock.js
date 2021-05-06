@@ -15,7 +15,6 @@ const MainBlock = () => {
     const [activePageNum, setActivePageNum] = useState(1);      // Page number for Paginator
     
     const [selectedMovies, setSelectedMovies] = useState([]);   // Nominated movies
-    const [selSet, setSelSet] = useState(new Set());   // Hashmap for fast access
 
 
     useEffect(() => {
@@ -41,17 +40,29 @@ const MainBlock = () => {
         setFetching(false);
     }, [movie, activePageNum])
 
+    // Hook for search input
     const movieHandler = (e) => {
         setMovie(e.target.value);
         setFetching(true);
     };
     
+    // Hook for paginator active element storing
     const paginatorHandler = (e, data) => {
         setActivePageNum(data.activePage)
     };
     
-    const addHandler = (imdbID, data) => {
-        console.log('==>', imdbID, data)
+    // Handler for nominating movies
+    const addHandler = (data) => {
+        const id = data.imdbID;
+        if (selectedMovies.hasOwnProperty(id)) { // deleting
+            const { [id]: propertyValue, ...changedMovies } = selectedMovies;
+            setSelectedMovies(changedMovies);
+        } else {
+            setSelectedMovies({ // adding
+                ...selectedMovies,
+                [id]: data,
+            });
+        }
     };
 
     return(
@@ -61,7 +72,7 @@ const MainBlock = () => {
             {(resultsCounter === "") ? <></> : 
             <div className="Main-statistic">
                 <Statistic size='mini'>
-                    <Statistic.Value>{selectedMovies.length}</Statistic.Value>
+                    <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
                     <Statistic.Label>Nominated</Statistic.Label>
                 </Statistic>
                 <Statistic size='mini'>
@@ -79,9 +90,9 @@ const MainBlock = () => {
         <div id="Cards-group">
         {searchResults.map((movie, i) => ( 
             (movie.Poster === "N/A") ? 
-                <MovieCard key={i + movie.imdbID} addHandler={addHandler} cover={MovieIcon} movie={movie} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
+                <MovieCard key={i + movie.imdbID} selectedMovies={selectedMovies} addHandler={addHandler} cover={MovieIcon} movie={movie} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
                 : 
-                <MovieCard key={i + movie.imdbID} addHandler={addHandler} cover={movie.Poster} movie={movie} titleStyle="Card-title" />
+                <MovieCard key={i + movie.imdbID} selectedMovies={selectedMovies} addHandler={addHandler} cover={movie.Poster} movie={movie} titleStyle="Card-title" />
         ))}
         </div>
         {(resultsCounter === "") ? <></> : 
