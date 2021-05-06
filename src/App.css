@@ -117,7 +117,7 @@
   max-width: 10em;
 }
 
-
+/* Dropdown menu stuff */
 .Menu-item {
   display: flex;
   flex-direction: row;
@@ -134,6 +134,14 @@
   opacity: 1;
 }
 
+#alert-stat:after {
+  content:attr(data-badge);
+  position:absolute;
+  margin: -3px 0 0 -4px;
+  background:rgb(255, 70, 38);
+  width:10px;height:10px;
+  border-radius:50%;
+}
 
 .content {
   width: 130%;

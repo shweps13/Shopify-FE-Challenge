@@ -102,7 +102,7 @@ const MainBlock = () => {
                             <Popup trigger={
                                 <Statistic size='mini'>
                                     <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
-                                    <Statistic.Label>Nominated</Statistic.Label>
+                                    <Statistic.Label id="alert-stat" >Nominated</Statistic.Label>
                                 </Statistic>
                                 } flowing hoverable>
                                 <List divided verticalAlign='middle'>
