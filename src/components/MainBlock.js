@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Statistic, Form, Input, Header, Pagination, Divider, Icon, Button } from 'semantic-ui-react';
+import { Statistic, Form, Input, Header, Pagination, Divider, Icon, Button, Dimmer } from 'semantic-ui-react';
 
 import MovieIcon from '../movieIcon.png';
 import MovieCard from './MovieCard.js';
@@ -14,9 +14,10 @@ const MainBlock = () => {
     const [resultsCounter, setResultsCounter] = useState("");   // Counter of founded movies
     const [fetching, setFetching] = useState(false);            // Data fetching process 
     const [activePageNum, setActivePageNum] = useState(1);      // Page number for Paginator
+    const [finalDimmer, setFinalDimmer] = useState({ active: false });  // Hook for Victory Message
+    const [winner, setWinner] = useState({});                   // Movie-Winner hook
     
     const [selectedMovies, setSelectedMovies] = useState([]);   // Nominated movies
-
 
     // useEffect(() => {
     //     console.log('==>',selectedMovies)
@@ -47,6 +48,7 @@ const MainBlock = () => {
         setSearchResults([]);
         setResultsCounter("");
         setMovie("");
+        setWinner({});
     }
 
     // Hook for search input
@@ -73,6 +75,20 @@ const MainBlock = () => {
             });
         }
     };
+
+    // 'Get the winner' functions
+    const winnerRand = (obj) => {
+        let keys = Object.keys(obj);
+        return obj[keys[keys.length * Math.random() << 0]];
+    };
+    const getWinner = () => {
+        let win = winnerRand(selectedMovies);
+        setWinner(win);
+        setFinalDimmer({ active: true });
+    };
+
+    // Final notification functions 
+    const dimmerClose = () => setFinalDimmer({ active: false })
 
     return(
     <div className="Main-form-block">
@@ -111,15 +127,23 @@ const MainBlock = () => {
                 </Divider>
                 <div id="Cards-group">
                     {Object.keys(selectedMovies).map(function(key, index) {
-                        return (
-                            <FinalCard key={index + selectedMovies[key].imdbID} cover={selectedMovies[key].Poster} movie={selectedMovies[key]} titleStyle="Card-title" />
-                        )
+                        return (<FinalCard key={index + selectedMovies[key].imdbID} cover={selectedMovies[key].Poster} movie={selectedMovies[key]} titleStyle="Card-title" />)
                     })}
                 </div>
                 <Divider />
                 <div className="final-btns">
                     <Button onClick={() => cleaningFunc()} icon labelPosition='left'><Icon name='repeat' />Nominate again</Button>
-                    <Button onClick={() => cleaningFunc()} icon labelPosition='right'>Get the Winner<Icon name='star' /></Button>
+                    <>
+                        <Button onClick={() => getWinner()} icon labelPosition='right'>Get the Winner<Icon name='star' /></Button>
+                        <Dimmer active={finalDimmer.active} onClickOutside={dimmerClose} page>
+                        <Header as='h2' icon inverted>
+                            <Icon name='star' />
+                            <Header.Subheader>The Winner is:</Header.Subheader>
+                            {winner.Title}
+                            <Header.Subheader>{winner.Year}</Header.Subheader>
+                        </Header>
+                        </Dimmer>
+                    </>
                 </div>
             </>
             :
