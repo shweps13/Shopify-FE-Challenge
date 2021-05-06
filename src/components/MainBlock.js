@@ -67,9 +67,9 @@ const MainBlock = () => {
         <div id="Cards-group">
         {searchResults.map((movie, i) => ( 
             (movie.Poster === "N/A") ? 
-                <MovieCard key={i + movie.imdbID} cover={MovieIcon} title={movie.Title} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
+                <MovieCard key={i + movie.imdbID} cover={MovieIcon} year={movie.Year} title={movie.Title} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
                 : 
-                <MovieCard key={i + movie.imdbID} cover={movie.Poster} title={movie.Title} titleStyle="Card-title" />
+                <MovieCard key={i + movie.imdbID} cover={movie.Poster} year={movie.Year} title={movie.Title} titleStyle="Card-title" />
         ))}
         </div>
         {(resultsCounter === "") ? <></> : 

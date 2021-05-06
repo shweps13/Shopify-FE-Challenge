@@ -101,6 +101,14 @@
   object-fit: contain;
 }
 
+.content h5 {
+  /* background-color: rgb(174, 39, 39); */
+}
+
+.content {
+  width: 130%;
+}
+
 /* Pagination */
 .pagination-div a:focus {
   outline: none;

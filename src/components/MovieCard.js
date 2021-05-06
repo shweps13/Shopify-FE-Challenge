@@ -1,15 +1,25 @@
 import React, { useState } from 'react';
-import { Dimmer } from 'semantic-ui-react';
+import { Dimmer, Header, Button } from 'semantic-ui-react';
 
-const MovieCard = ({coverStyle, cover, title, titleStyle}) => {
+const MovieCard = ({coverStyle, cover, year, title, titleStyle}) => {
 
     const [dimmer, setDimmer] = useState({ active: false });
 
     const handleShow = () => setDimmer({ active: true })
     const handleHide = () => setDimmer({ active: false })
 
+    const content = (
+        <div>
+        <Header as='h5' inverted>{title}</Header>
+        <Header as='h5' inverted>{year}</Header>
+        {/* <p>{year}</p> */}
+
+        <Button primary>Add</Button>
+      </div>
+      )
+
     return (
-        <Dimmer.Dimmable dimmed={dimmer.active} onMouseEnter={handleShow} onMouseLeave={handleHide}>
+        <Dimmer.Dimmable dimmed={dimmer.active}   onMouseEnter={handleShow} onMouseLeave={handleHide}>
 
             <div className="Card-item">
                 <div className="Card-image">
@@ -18,7 +28,7 @@ const MovieCard = ({coverStyle, cover, title, titleStyle}) => {
                 <div className={titleStyle}>{title}</div>
             </div>
             
-        <Dimmer active={dimmer.active} onClickOutside={handleHide} />
+        <Dimmer active={dimmer.active} onClickOutside={handleHide}>{content}</Dimmer>
         </Dimmer.Dimmable>
     )
 
