@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Statistic, Form, Input, Header, Pagination } from 'semantic-ui-react';
+import { Statistic, Form, Input, Header, Pagination, Divider, Icon } from 'semantic-ui-react';
 
 import MovieIcon from '../movieIcon.png';
 import MovieCard from './MovieCard.js';
+import FinalCard from './FinalCard.js';
 
 
 const MainBlock = () => {
@@ -17,9 +18,9 @@ const MainBlock = () => {
     const [selectedMovies, setSelectedMovies] = useState([]);   // Nominated movies
 
 
-    useEffect(() => {
-        console.log('==>',selectedMovies)
-    }, [selectedMovies])
+    // useEffect(() => {
+    //     console.log('==>',selectedMovies)
+    // }, [selectedMovies])
 
     useEffect(() => {
         if (movie) {
@@ -86,20 +87,43 @@ const MainBlock = () => {
             <Header as='h4'>Movie title</Header>
             <Input loading={fetching} fluid icon='search' iconPosition='left' placeholder='Search...' value={movie} onChange={movieHandler}/>
         </Form>
-
-        <div id="Cards-group">
-        {searchResults.map((movie, i) => ( 
-            (movie.Poster === "N/A") ? 
-                <MovieCard key={i + movie.imdbID} selectedMovies={selectedMovies} addHandler={addHandler} cover={MovieIcon} movie={movie} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
-                : 
-                <MovieCard key={i + movie.imdbID} selectedMovies={selectedMovies} addHandler={addHandler} cover={movie.Poster} movie={movie} titleStyle="Card-title" />
-        ))}
-        </div>
-        {(resultsCounter === "") ? <></> : 
-        <div className="pagination-div">
-            <Pagination onPageChange={paginatorHandler} activePage={activePageNum} totalPages={Math.ceil((parseInt(resultsCounter)) / 10)} />
-        </div>
+        
+        {(Object.keys(selectedMovies).length >= 5) ? 
+            <>
+                <Header as='h2'>The Best</Header>
+                <Divider horizontal>
+                <Header as='h4'>
+                    <Icon name='film' />
+                    We got final nominations
+                </Header>
+                </Divider>
+                <div id="Cards-group">
+                    {Object.keys(selectedMovies).map(function(key, index) {
+                        return (
+                            <FinalCard key={index + selectedMovies[key].imdbID} cover={selectedMovies[key].Poster} movie={selectedMovies[key]} titleStyle="Card-title" />
+                        )
+                    })}
+                </div>
+                <Divider />
+            </>
+            :
+            <>
+                <div id="Cards-group">
+                {searchResults.map((movie, i) => ( 
+                    (movie.Poster === "N/A") ? 
+                        <MovieCard key={i + movie.imdbID} selectedMovies={selectedMovies} addHandler={addHandler} cover={MovieIcon} movie={movie} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
+                        : 
+                        <MovieCard key={i + movie.imdbID} selectedMovies={selectedMovies} addHandler={addHandler} cover={movie.Poster} movie={movie} titleStyle="Card-title" />
+                ))}
+                </div>
+                {(resultsCounter === "") ? <></> : 
+                <div className="pagination-div">
+                    <Pagination onPageChange={paginatorHandler} activePage={activePageNum} totalPages={Math.ceil((parseInt(resultsCounter)) / 10)} />
+                </div>
+                }
+            </>
         }
+        
         
     </div>
     )
