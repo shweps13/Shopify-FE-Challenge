@@ -121,3 +121,9 @@
 .pagination-div a:focus {
   outline: none;
 }
+
+/* ======= */
+
+.final-btns {
+  margin-top: 1.75em;
+}

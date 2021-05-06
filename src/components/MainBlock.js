@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Statistic, Form, Input, Header, Pagination, Divider, Icon } from 'semantic-ui-react';
+import { Statistic, Form, Input, Header, Pagination, Divider, Icon, Button } from 'semantic-ui-react';
 
 import MovieIcon from '../movieIcon.png';
 import MovieCard from './MovieCard.js';
@@ -41,6 +41,14 @@ const MainBlock = () => {
         setFetching(false);
     }, [movie, activePageNum])
 
+    const cleaningFunc = () => {
+        setSelectedMovies([]);
+        setActivePageNum(1);
+        setSearchResults([]);
+        setResultsCounter("");
+        setMovie("");
+    }
+
     // Hook for search input
     const movieHandler = (e) => {
         setMovie(e.target.value);
@@ -70,17 +78,21 @@ const MainBlock = () => {
     <div className="Main-form-block">
         <div className="Main-form-header">
             <Header as='h1'>The Shoppies</Header>
-            {(resultsCounter === "") ? <></> : 
-            <div className="Main-statistic">
-                <Statistic size='mini'>
-                    <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
-                    <Statistic.Label>Nominated</Statistic.Label>
-                </Statistic>
-                <Statistic size='mini'>
-                    <Statistic.Value>{resultsCounter}</Statistic.Value>
-                    <Statistic.Label>Founded</Statistic.Label>
-                </Statistic>
-            </div>
+            {(Object.keys(selectedMovies).length >= 5) ? <></>:
+                <>
+                    {(resultsCounter === "") ? <></> : 
+                    <div className="Main-statistic">
+                        <Statistic size='mini'>
+                            <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
+                            <Statistic.Label>Nominated</Statistic.Label>
+                        </Statistic>
+                        <Statistic size='mini'>
+                            <Statistic.Value>{resultsCounter}</Statistic.Value>
+                            <Statistic.Label>Founded</Statistic.Label>
+                        </Statistic>
+                    </div>
+                    }
+                </>
             }
         </div>
         <Form id="Main-form-block">
@@ -105,6 +117,10 @@ const MainBlock = () => {
                     })}
                 </div>
                 <Divider />
+                <div className="final-btns">
+                    <Button onClick={() => cleaningFunc()} icon labelPosition='left'><Icon name='repeat' />Nominate again</Button>
+                    <Button onClick={() => cleaningFunc()} icon labelPosition='right'>Get the Winner<Icon name='star' /></Button>
+                </div>
             </>
             :
             <>
@@ -123,8 +139,6 @@ const MainBlock = () => {
                 }
             </>
         }
-        
-        
     </div>
     )
 }
