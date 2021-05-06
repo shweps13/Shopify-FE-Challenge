@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Statistic, Form, Input, Header, Pagination, Divider, Icon, Button, Dimmer } from 'semantic-ui-react';
+import { List, Image, Popup, Statistic, Form, Input, Header, Pagination, Divider, Icon, Button, Dimmer } from 'semantic-ui-react';
 
 import MovieIcon from '../movieIcon.png';
 import MovieCard from './MovieCard.js';
@@ -98,10 +98,25 @@ const MainBlock = () => {
                 <>
                     {(resultsCounter === "") ? <></> : 
                     <div className="Main-statistic">
-                        <Statistic size='mini'>
-                            <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
-                            <Statistic.Label>Nominated</Statistic.Label>
-                        </Statistic>
+                        <Popup trigger={
+                            <Statistic size='mini'>
+                                <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
+                                <Statistic.Label>Nominated</Statistic.Label>
+                            </Statistic>
+                            } flowing hoverable>
+                            <List divided verticalAlign='middle'>
+                                {Object.keys(selectedMovies).map(function(key, index) {
+                                    return (
+                                        <List.Item key={index + selectedMovies[key].imdbID} >
+                                            <Image avatar src={selectedMovies[key].Poster} />
+                                            <List.Content>{selectedMovies[key].Title}</List.Content>
+                                        </List.Item>
+                                    )
+                                })}
+                            </List>
+
+                        </Popup>
+                        
                         <Statistic size='mini'>
                             <Statistic.Value>{resultsCounter}</Statistic.Value>
                             <Statistic.Label>Founded</Statistic.Label>
