@@ -39,6 +39,11 @@
   margin: 0 !important;
 }
 
+.Main-statistic div{
+  margin-bottom: 0 !important;
+}
+
+
 /* Grids with movie covers here */
 
 #Cards-group {
@@ -101,10 +106,11 @@
   object-fit: contain;
 }
 
+/* Cards Dimmer */
 #Trimmed {
-    text-overflow: ellipsis;   /* IE, Safari (WebKit) */
-    overflow:hidden;              /* don't show excess chars */
-    white-space:nowrap;           /* force single line */
+  text-overflow: ellipsis;
+  overflow:hidden;      
+  white-space:nowrap;
 }
 
 .content {

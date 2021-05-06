@@ -8,13 +8,14 @@ import MovieCard from './MovieCard.js';
 
 const MainBlock = () => {
 
-    const [movie, setMovie] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-    const [resultsCounter, setResultsCounter] = useState("");
-    const [fetching, setFetching] = useState(false);
-    const [activePageNum, setActivePageNum] = useState(1);
+    const [movie, setMovie] = useState("");                     // Input inside search form
+    const [searchResults, setSearchResults] = useState([]);     // Received data for 10 movies
+    const [resultsCounter, setResultsCounter] = useState("");   // Counter of founded movies
+    const [fetching, setFetching] = useState(false);            // Data fetching process 
+    const [activePageNum, setActivePageNum] = useState(1);      // Page number for Paginator
     
-    const [selectedMovies, setSelectedMovies] = useState([]);
+    const [selectedMovies, setSelectedMovies] = useState([]);   // Nominated movies
+    const [selSet, setSelSet] = useState(new Set());   // Hashmap for fast access
 
 
     useEffect(() => {
@@ -44,8 +45,13 @@ const MainBlock = () => {
         setMovie(e.target.value);
         setFetching(true);
     };
+    
     const paginatorHandler = (e, data) => {
         setActivePageNum(data.activePage)
+    };
+    
+    const addHandler = (imdbID, data) => {
+        console.log('==>', imdbID, data)
     };
 
     return(
@@ -53,10 +59,16 @@ const MainBlock = () => {
         <div className="Main-form-header">
             <Header as='h1'>The Shoppies</Header>
             {(resultsCounter === "") ? <></> : 
-            <Statistic size='mini'>
-                <Statistic.Value>{resultsCounter}</Statistic.Value>
-                <Statistic.Label>Movies</Statistic.Label>
-            </Statistic>
+            <div className="Main-statistic">
+                <Statistic size='mini'>
+                    <Statistic.Value>{selectedMovies.length}</Statistic.Value>
+                    <Statistic.Label>Nominated</Statistic.Label>
+                </Statistic>
+                <Statistic size='mini'>
+                    <Statistic.Value>{resultsCounter}</Statistic.Value>
+                    <Statistic.Label>Founded</Statistic.Label>
+                </Statistic>
+            </div>
             }
         </div>
         <Form id="Main-form-block">
@@ -67,9 +79,9 @@ const MainBlock = () => {
         <div id="Cards-group">
         {searchResults.map((movie, i) => ( 
             (movie.Poster === "N/A") ? 
-                <MovieCard key={i + movie.imdbID} cover={MovieIcon} year={movie.Year} title={movie.Title} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
+                <MovieCard key={i + movie.imdbID} addHandler={addHandler} cover={MovieIcon} movie={movie} coverStyle="Card-cover-na" titleStyle="Card-title-na" />
                 : 
-                <MovieCard key={i + movie.imdbID} cover={movie.Poster} year={movie.Year} title={movie.Title} titleStyle="Card-title" />
+                <MovieCard key={i + movie.imdbID} addHandler={addHandler} cover={movie.Poster} movie={movie} titleStyle="Card-title" />
         ))}
         </div>
         {(resultsCounter === "") ? <></> : 
