@@ -9,13 +9,15 @@ const MovieCard = ({coverStyle, cover, year, title, titleStyle}) => {
     const handleHide = () => setDimmer({ active: false })
 
     const content = (
-        <div>
-        <Header as='h5' inverted>{title}</Header>
+    <div>
+        {(title.length > 40) ? 
+            <Header as='h5' id="Trimmed" inverted>{title}</Header>
+            :
+            <Header as='h5' inverted>{title}</Header>}
         <Header as='h5' inverted>{year}</Header>
-        {/* <p>{year}</p> */}
 
         <Button primary>Add</Button>
-      </div>
+    </div>      
       )
 
     return (
