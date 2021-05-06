@@ -127,6 +127,11 @@
 
 #MenuBtn {
   float: right !important;
+  opacity: 0.25;
+}
+
+#MenuBtn:hover {
+  opacity: 1;
 }
 
 

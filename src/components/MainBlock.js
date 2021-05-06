@@ -98,30 +98,35 @@ const MainBlock = () => {
                 <>
                     {(resultsCounter === "") ? <></> : 
                     <div className="Main-statistic">
-                        <Popup trigger={
+                        {(Object.keys(selectedMovies).length > 0) ? 
+                            <Popup trigger={
+                                <Statistic size='mini'>
+                                    <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
+                                    <Statistic.Label>Nominated</Statistic.Label>
+                                </Statistic>
+                                } flowing hoverable>
+                                <List divided verticalAlign='middle'>
+                                    {Object.keys(selectedMovies).map(function(key, index) {
+                                        return (
+                                            <List.Item className='Menu-item' key={index + selectedMovies[key].imdbID} >
+                                                <Image avatar src={selectedMovies[key].Poster} />
+                                                {(selectedMovies[key].Title.length > 15) ? 
+                                                    <List.Content id="Trimmed-menu">{selectedMovies[key].Title}</List.Content>
+                                                    :
+                                                    <List.Content>{selectedMovies[key].Title}</List.Content>
+                                                }
+                                                <Button onClick={() => addHandler(selectedMovies[key])} circular id="MenuBtn" basic color='red' icon='remove' size='mini' />
+                                            </List.Item>
+                                        )
+                                    })}
+                                </List>
+                            </Popup>
+                            :
                             <Statistic size='mini'>
                                 <Statistic.Value>{Object.keys(selectedMovies).length}</Statistic.Value>
                                 <Statistic.Label>Nominated</Statistic.Label>
                             </Statistic>
-                            } flowing hoverable>
-                            <List divided verticalAlign='middle'>
-                                {Object.keys(selectedMovies).map(function(key, index) {
-                                    return (
-                                        <List.Item className='Menu-item' key={index + selectedMovies[key].imdbID} >
-                                            <Image avatar src={selectedMovies[key].Poster} />
-                                            {(selectedMovies[key].Title.length > 15) ? 
-                                                <List.Content id="Trimmed-menu">{selectedMovies[key].Title}</List.Content>
-                                                :
-                                                <List.Content>{selectedMovies[key].Title}</List.Content>
-                                            }
-                                            <Button circular id="MenuBtn" basic color='red' icon='remove' size='mini' />
-                                        </List.Item>
-                                    )
-                                })}
-                            </List>
-
-                        </Popup>
-                        
+                        }
                         <Statistic size='mini'>
                             <Statistic.Value>{resultsCounter}</Statistic.Value>
                             <Statistic.Label>Founded</Statistic.Label>
