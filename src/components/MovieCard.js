@@ -17,9 +17,9 @@ const MovieCard = ({coverStyle, addHandler, movie, cover, selectedMovies, titleS
             <Header as='h5' inverted>{movie.Year}</Header>
 
             {(selectedMovies.hasOwnProperty(movie.imdbID)) ? 
-                <Button size="mini" color='red' onClick={() => addHandler(movie)}>Remove</Button>   
+                <Button id="Card-btn" size="mini" color='red' onClick={() => addHandler(movie)}>Remove</Button>   
                 :
-                <Button size="mini" primary onClick={() => addHandler(movie)}>Nominate</Button>
+                <Button id="Card-btn" size="mini" primary onClick={() => addHandler(movie)}>Nominate</Button>
             }
         </div>      
       )

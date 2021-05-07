@@ -18,7 +18,6 @@
 #Main-form-block {
   background-color: rgb(246, 246, 246) ;
   width: 50em;
-
   padding: 1em;
   border: 1px solid lightgray;
   border-radius: 0.5em;
@@ -100,6 +99,10 @@
   cursor: pointer;
 }
 
+#Card-btn {
+  margin: 0 !important;
+}
+
 #Card-cover-na {
   background-color: rgb(242, 242, 242);
   object-position: 50% 50%;
@@ -144,10 +147,6 @@
   border-radius:50%;
 }
 
-.content {
-  width: 130%;
-}
-
 /* Pagination */
 .pagination-div a:focus {
   outline: none;
@@ -157,4 +156,77 @@
 
 .final-btns {
   margin-top: 1.75em;
+}
+
+
+/* Some responsive things */
+
+/* For Mobile */
+@media screen and (max-width: 540px) {
+  .Main-form-header{
+    background-color: teal;
+  }
+}
+
+/* For Tablets */
+@media screen and (min-width: 540px) and (max-width: 780px) {
+  .Main-form-header{
+    background-color: green;
+  }
+}
+
+/* For Tablets */
+@media screen and (min-width: 1281px) and (max-width: 2048px) {
+  #Cards-group {
+    padding: 30px 25px 30px 25px;
+    grid-auto-rows: 250px;
+    grid-gap: 25px;
+    max-width: 900px;
+  }
+
+  #Main-form-block {
+    width: 900px;
+  }
+
+  /* cards annotations */
+  #Cards-group > div > div.ui.dimmer > div > div > h5 {
+    font-size: large;
+  }
+
+  .ui.statistic > .label {
+    font-size: x-large !important;
+  }
+
+  .Main-form-header h1 {
+    font-size: 35px !important;
+  }
+}
+
+
+
+/* For big screens */
+@media screen and (min-width: 2048px) {
+  #Cards-group {
+    padding: 40px 30px 40px 30px;
+    grid-auto-rows: 330px;
+    grid-gap: 30px;
+    max-width: 1200px;
+  }
+
+  #Main-form-block {
+    width: 1200px;
+  }
+
+  /* cards annotations */
+  #Cards-group > div > div.ui.dimmer > div > div > h5 {
+    font-size: large;
+  }
+
+  .ui.statistic > .label {
+    font-size: x-large !important;
+  }
+
+  .Main-form-header h1 {
+    font-size: 40px !important;
+  }
 }
