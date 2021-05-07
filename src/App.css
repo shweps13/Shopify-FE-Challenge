@@ -210,9 +210,45 @@
 }
 
 /* For Tablets */
-@media screen and (min-width: 540px) and (max-width: 780px) {
-  .Main-form-header{
-    background-color: green;
+@media screen and (min-width: 540px) and (max-width: 715px) {
+  .Main-form-header {
+    margin: 10px 5px 0 5px;
+  }
+
+  #Main-form-block {
+    width: 100%;
+  }
+
+  .Main-block {
+    align-items: stretch !important;
+  }
+
+  #paginator {
+    display: none;
+  }
+  #paginator-mobile {
+    display: inline-flex;
+    margin-bottom: 20px;
+  }
+
+  #Cards-group {
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-auto-rows: 240px;
+    grid-gap: 10px;
+    max-width: 100%;
+  }
+
+  .final-btns {
+    margin-bottom: 15px;
+  }
+
+  .ui.statistic > .label {
+    font-size: small !important;
   }
 }
 
