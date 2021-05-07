@@ -211,7 +211,19 @@ const MainBlock = () => {
                 </div>
                 {(resultsCounter === "") ? <></> : 
                 <div className="pagination-div">
-                    <Pagination onPageChange={paginatorHandler} activePage={activePageNum} totalPages={Math.ceil((parseInt(resultsCounter)) / 10)} />
+                    <Pagination id="paginator" onPageChange={paginatorHandler} activePage={activePageNum} totalPages={Math.ceil((parseInt(resultsCounter)) / 10)} />
+                    <Pagination
+                        id="paginator-mobile"
+                        activePage={activePageNum}
+                        onPageChange={paginatorHandler}
+                        boundaryRange={0}
+                        defaultActivePage={1}
+                        ellipsisItem={null}
+                        firstItem={null}
+                        lastItem={null}
+                        siblingRange={1}
+                        totalPages={Math.ceil((parseInt(resultsCounter)) / 10)}
+                    />
                 </div>
                 }
             </>
