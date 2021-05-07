@@ -1,6 +1,8 @@
 # shopify-fe-challenge
 Web Developer Intern Challenge - Fall 2021
 
+https://shoppies-siburov.netlify.app/
+
 ## The Challenge
 
 We need a webpage that can search OMDB for movies, and allow the user to save their favourite films they feel should be up for nomination. 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Animated } from "react-animated-css";
 import { List, Image, Popup, Statistic, Form, Input, Header, Pagination, Divider, Icon, Button, Dimmer } from 'semantic-ui-react';
 
 import MovieIcon from '../movieIcon.png';
@@ -59,7 +60,7 @@ const MainBlock = () => {
     
     // Hook for paginator active element storing
     const paginatorHandler = (e, data) => {
-        setActivePageNum(data.activePage)
+        setActivePageNum(data.activePage);
     };
     
     // Handler for nominating movies
@@ -68,11 +69,14 @@ const MainBlock = () => {
         if (selectedMovies.hasOwnProperty(id)) { // deleting
             const { [id]: propertyValue, ...changedMovies } = selectedMovies;
             setSelectedMovies(changedMovies);
+            localStorage.setItem("selectedMovies", JSON.stringify(changedMovies));
         } else {
-            setSelectedMovies({ // adding
+            let updatedData = { // adding
                 ...selectedMovies,
                 [id]: data,
-            });
+            }
+            setSelectedMovies(updatedData);
+            localStorage.setItem("selectedMovies", JSON.stringify(updatedData));
         }
     };
 
@@ -91,8 +95,8 @@ const MainBlock = () => {
     const dimmerClose = () => setFinalDimmer({ active: false })
 
     return(
-    <div className="Main-form-block">
-        <div className="Main-form-header">
+    <div className="Main-form-block ">
+        <Animated animationIn="fadeIn" animationOut="fadeOut" animationInDuration={1000} isVisible={true} className="Main-form-header">
             <Header as='h1'>The Shoppies</Header>
             {(Object.keys(selectedMovies).length >= 5) ? <></>:
                 <>
@@ -135,11 +139,14 @@ const MainBlock = () => {
                     }
                 </>
             }
-        </div>
+        </Animated>
+
+        <Animated animationIn="fadeIn" animationOut="fadeOut" animationInDuration={1000} isVisible={true}>
         <Form id="Main-form-block">
             <Header as='h4'>Movie title</Header>
             <Input loading={fetching} fluid icon='search' iconPosition='left' placeholder='Search...' value={movie} onChange={movieHandler}/>
         </Form>
+        </Animated>
         
         {(Object.keys(selectedMovies).length >= 5) ? 
             <>
@@ -162,7 +169,9 @@ const MainBlock = () => {
                         <Button onClick={() => getWinner()} icon labelPosition='right'>Get the Winner<Icon name='star' /></Button>
                         <Dimmer active={finalDimmer.active} onClickOutside={dimmerClose} page>
                         <Header as='h2' icon inverted>
-                            <Icon name='star' />
+                            <Animated animationIn="rotateIn" animationOut="rotateOut" animationInDuration={1000} isVisible={true}>
+                                <Icon name='star' />
+                            </Animated>
                             <Header.Subheader>The Winner is:</Header.Subheader>
                             {winner.Title}
                             <Header.Subheader>{winner.Year}</Header.Subheader>
