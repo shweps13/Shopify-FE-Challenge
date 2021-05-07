@@ -24,6 +24,15 @@ const MainBlock = () => {
     //     console.log('==>',selectedMovies)
     // }, [selectedMovies])
 
+    // loading selected movies from the localStorage
+    useEffect(() => {
+        const json = localStorage.getItem("selectedMovies");
+        const savedMovies = JSON.parse(json);
+        if (savedMovies) {
+            setSelectedMovies(savedMovies);
+        }
+    }, []);
+
     useEffect(() => {
         if (movie) {
             axios.get(`https://www.omdbapi.com/?s=${movie}&apikey=${process.env.REACT_APP_APIKEY}&page=${activePageNum}`)
@@ -50,6 +59,7 @@ const MainBlock = () => {
         setResultsCounter("");
         setMovie("");
         setWinner({});
+        localStorage.removeItem("selectedMovies");
     }
 
     // Hook for search input
