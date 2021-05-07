@@ -10,7 +10,7 @@ import FinalCard from './FinalCard.js';
 
 const MainBlock = () => {
 
-    const [movie, setMovie] = useState("");                     // Input inside search form
+    const [movie, setMovie] = useState("blade");                     // Input inside search form
     const [searchResults, setSearchResults] = useState([]);     // Received data for 10 movies
     const [resultsCounter, setResultsCounter] = useState("");   // Counter of founded movies
     const [fetching, setFetching] = useState(false);            // Data fetching process 
