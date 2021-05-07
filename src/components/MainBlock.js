@@ -28,8 +28,15 @@ const MainBlock = () => {
     useEffect(() => {
         const json = localStorage.getItem("selectedMovies");
         const savedMovies = JSON.parse(json);
+        
+        const searchReq = localStorage.getItem("searchReq");
+        const savedReq = JSON.parse(searchReq);
+
         if (savedMovies) {
             setSelectedMovies(savedMovies);
+        }
+        if (savedReq) {
+            setMovie(savedReq);
         }
     }, []);
 
@@ -60,12 +67,14 @@ const MainBlock = () => {
         setMovie("");
         setWinner({});
         localStorage.removeItem("selectedMovies");
+        localStorage.removeItem("searchReq");
     }
 
     // Hook for search input
     const movieHandler = (e) => {
         setMovie(e.target.value);
         setFetching(true);
+        localStorage.setItem("searchReq", JSON.stringify(e.target.value));
     };
     
     // Hook for paginator active element storing
